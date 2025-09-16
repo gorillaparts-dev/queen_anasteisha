@@ -1,0 +1,4080 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Queen_Anasteisha — Fashion Boutique</title>
+  <style>
+    :root {
+      --bg:#0b0c12; --card:#141725; --soft:#1c2133; --text:#f7f7fb; --muted:#a7acc2;
+      --accent:#e13f7b; --accent-2:#5ec6ff; --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 16px;}
+    header{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,rgba(11,12,18,.92),rgba(11,12,18,.4));backdrop-filter: blur(8px);}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800}
+    .brand-badge{width:36px;height:36px;border-radius:10px;background:linear-gradient(145deg,var(--accent),#ff7ea7);box-shadow:0 8px 18px rgba(0,0,0,.35);}
+    .cta{display:flex;gap:10px;align-items:center}
+    .cta a{padding:10px 14px;border-radius:12px;background:var(--soft);color:var(--text);font-weight:600;border:1px solid rgba(255,255,255,.06)}
+    .cta a.primary{background:linear-gradient(135deg,var(--accent),#ff7ea7);}
+    .cta svg{display:block}
+
+    .hero{position:relative;min-height:56vh;border-bottom-left-radius:40px;border-bottom-right-radius:40px;overflow:hidden;background:#0b0c12;}
+    .hero::before{
+      content:"";position:absolute;inset:0;background:url('assets/dubai_hero.png') center/cover no-repeat fixed;opacity:.9;
+    }
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,12,18,.0) 0%, rgba(11,12,18,.75) 70%, rgba(11,12,18,.95) 100%);}
+    .hero-inner{position:relative;z-index:1;padding:80px 0 40px;display:flex;align-items:flex-end;min-height:56vh;}
+    .hero-card{background:linear-gradient(145deg,rgba(28,33,51,.85),rgba(20,23,37,.85));backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow);border-radius:22px;padding:22px;max-width:760px;margin-bottom:10px;}
+    .hero-title{font-size:34px;margin:0 0 6px;font-weight:900;}
+    .hero-sub{margin:0;color:var(--muted)}
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .chip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+    .chip.accent{background:linear-gradient(135deg,var(--accent),#ff7ea7);}
+    .chip.blue{background:linear-gradient(135deg,var(--accent-2),#98deff);color:#071018}
+
+    .filters{margin:26px 0 10px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+    .filter-tabs{display:flex;gap:10px;flex-wrap:wrap}
+    .tab{padding:10px 14px;border-radius:12px;background:var(--soft);cursor:pointer;border:1px solid rgba(255,255,255,.06)}
+    .tab.active{background:linear-gradient(135deg,var(--accent-2),#98deff);color:#071018;font-weight:800}
+    .search{display:flex;align-items:center;background:var(--soft);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:8px 12px;gap:8px;min-width:240px;flex:1;max-width:320px;}
+    .search input{background:transparent;border:none;outline:none;color:var(--text);width:100%}
+
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin:10px 0 60px;}
+    .card{grid-column:span 12;background:#141725;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow);}
+    @media(min-width:640px){.card{grid-column: span 6;}}
+    @media(min-width:1024px){.card{grid-column: span 4;}}
+    .carousel{position:relative;aspect-ratio:3/4;overflow:hidden;background:#0f1220}
+    .slides{display:flex;height:100%;transition:transform .5s ease}
+    .slides img{width:100%;object-fit:cover;display:block;flex:0 0 100%}
+    .dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:2}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;border:1px solid rgba(255,255,255,.7)}
+    .dot.active{background:#fff}
+    .arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:999px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.2);display:grid;place-items:center;color:#fff;cursor:pointer;z-index:2}
+    .arrow.left{left:10px} .arrow.right{right:10px}
+    .meta{display:flex;flex-direction:column;gap:10px;padding:14px 14px 16px;}
+    .title{font-size:18px;font-weight:800;margin:0}
+    .price-size{display:flex;justify-content:space-between;align-items:center;color:#a7acc2}
+    .badges{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{font-size:12px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+    .buy{margin-top:6px;display:flex;gap:10px}
+    .btn{flex:1;padding:10px 14px;border-radius:12px;border:none;cursor:pointer;font-weight:800}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),#ff7ea7);color:#fff}
+    .btn.ghost{background:#1c2133;color:#fff;border:1px solid rgba(255,255,255,.08)}
+    footer{padding:40px 0;border-top:1px dashed rgba(255,255,255,.15);color:#a7acc2}
+    .footgrid{display:grid;grid-template-columns:1fr;gap:18px}
+    @media(min-width:720px){.footgrid{grid-template-columns:1.2fr 1fr 1fr;}}
+    .footbrand{display:flex;align-items:center;gap:12px}
+    .footbrand .brand-badge{width:42px;height:42px}
+    .tiny{font-size:12px;color:#a7acc2}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="brand-badge"></div>
+        <span>Queen_Anasteisha</span>
+      </div>
+      <div class="cta">
+        <a href="#catalog">Каталог</a>
+        <a href="https://instagram.com/anaqueen_shop" target="_blank" aria-label="Instagram" title="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="3" width="18" height="18" rx="5" stroke="white" stroke-opacity=".8"/>
+            <circle cx="12" cy="12" r="4.2" stroke="white" stroke-opacity=".8"/>
+            <circle cx="17.5" cy="6.5" r="1.2" fill="white" />
+          </svg>
+        </a>
+        <a href="https://t.me/+971585085529" target="_blank" aria-label="Telegram" title="Telegram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M9.5 12.8l-.3 4.1c.4 0 .6-.2 .8-.4l1.9-1.8 3.9 2.8c.7.4 1.2.2 1.4-.7l2.6-12.2c.2-.9-.3-1.3-1-1.1L3.8 9.7c-.9.3-.9.9-.2 1.1l4.7 1.5 10.8-6.8-9.6 7.3z" fill="white" fill-opacity=".9"/>
+          </svg>
+        </a>
+        <a class="primary" href="https://wa.me/971585085529" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-card">
+        <h1 class="hero-title">Fashion Boutique </h1>
+        <p class="hero-sub">Бутик женской одежды Каталог: Платья,Корсеты,Пиджаки,Костюмы,Юбки</p>
+        <div class="chips">
+          <div class="chip accent">Новое поступление</div>
+          <div class="chip blue">Dubai</div>
+        </div>
+      </div>
+    </div>
+  
+      <article class="card" data-category="платья" data-title="Платья 1">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья1_a.png" alt="Платья 1 a">
+            <img src="assets/платья1_b.png" alt="Платья 1 b">
+            <img src="assets/платья1_c.png" alt="Платья 1 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 1</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 2">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья2_a.png" alt="Платья 2 a">
+            <img src="assets/платья2_b.png" alt="Платья 2 b">
+            <img src="assets/платья2_c.png" alt="Платья 2 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 2</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 3">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья3_a.png" alt="Платья 3 a">
+            <img src="assets/платья3_b.png" alt="Платья 3 b">
+            <img src="assets/платья3_c.png" alt="Платья 3 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 3</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 4">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья4_a.png" alt="Платья 4 a">
+            <img src="assets/платья4_b.png" alt="Платья 4 b">
+            <img src="assets/платья4_c.png" alt="Платья 4 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 4</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 5">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья5_a.png" alt="Платья 5 a">
+            <img src="assets/платья5_b.png" alt="Платья 5 b">
+            <img src="assets/платья5_c.png" alt="Платья 5 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 5</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 6">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья6_a.png" alt="Платья 6 a">
+            <img src="assets/платья6_b.png" alt="Платья 6 b">
+            <img src="assets/платья6_c.png" alt="Платья 6 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 6</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 7">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья7_a.png" alt="Платья 7 a">
+            <img src="assets/платья7_b.png" alt="Платья 7 b">
+            <img src="assets/платья7_c.png" alt="Платья 7 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 7</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 8">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья8_a.png" alt="Платья 8 a">
+            <img src="assets/платья8_b.png" alt="Платья 8 b">
+            <img src="assets/платья8_c.png" alt="Платья 8 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 8</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 9">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья9_a.png" alt="Платья 9 a">
+            <img src="assets/платья9_b.png" alt="Платья 9 b">
+            <img src="assets/платья9_c.png" alt="Платья 9 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 9</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 10">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья10_a.png" alt="Платья 10 a">
+            <img src="assets/платья10_b.png" alt="Платья 10 b">
+            <img src="assets/платья10_c.png" alt="Платья 10 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 10</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 11">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья11_a.png" alt="Платья 11 a">
+            <img src="assets/платья11_b.png" alt="Платья 11 b">
+            <img src="assets/платья11_c.png" alt="Платья 11 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 11</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 12">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья12_a.png" alt="Платья 12 a">
+            <img src="assets/платья12_b.png" alt="Платья 12 b">
+            <img src="assets/платья12_c.png" alt="Платья 12 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 12</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 13">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья13_a.png" alt="Платья 13 a">
+            <img src="assets/платья13_b.png" alt="Платья 13 b">
+            <img src="assets/платья13_c.png" alt="Платья 13 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 13</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 14">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья14_a.png" alt="Платья 14 a">
+            <img src="assets/платья14_b.png" alt="Платья 14 b">
+            <img src="assets/платья14_c.png" alt="Платья 14 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 14</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 15">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья15_a.png" alt="Платья 15 a">
+            <img src="assets/платья15_b.png" alt="Платья 15 b">
+            <img src="assets/платья15_c.png" alt="Платья 15 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 15</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 16">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья16_a.png" alt="Платья 16 a">
+            <img src="assets/платья16_b.png" alt="Платья 16 b">
+            <img src="assets/платья16_c.png" alt="Платья 16 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 16</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 17">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья17_a.png" alt="Платья 17 a">
+            <img src="assets/платья17_b.png" alt="Платья 17 b">
+            <img src="assets/платья17_c.png" alt="Платья 17 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 17</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 18">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья18_a.png" alt="Платья 18 a">
+            <img src="assets/платья18_b.png" alt="Платья 18 b">
+            <img src="assets/платья18_c.png" alt="Платья 18 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 18</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 19">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья19_a.png" alt="Платья 19 a">
+            <img src="assets/платья19_b.png" alt="Платья 19 b">
+            <img src="assets/платья19_c.png" alt="Платья 19 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 19</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 20">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья20_a.png" alt="Платья 20 a">
+            <img src="assets/платья20_b.png" alt="Платья 20 b">
+            <img src="assets/платья20_c.png" alt="Платья 20 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 20</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 21">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья21_a.png" alt="Платья 21 a">
+            <img src="assets/платья21_b.png" alt="Платья 21 b">
+            <img src="assets/платья21_c.png" alt="Платья 21 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 21</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 22">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья22_a.png" alt="Платья 22 a">
+            <img src="assets/платья22_b.png" alt="Платья 22 b">
+            <img src="assets/платья22_c.png" alt="Платья 22 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 22</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 23">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья23_a.png" alt="Платья 23 a">
+            <img src="assets/платья23_b.png" alt="Платья 23 b">
+            <img src="assets/платья23_c.png" alt="Платья 23 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 23</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 24">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья24_a.png" alt="Платья 24 a">
+            <img src="assets/платья24_b.png" alt="Платья 24 b">
+            <img src="assets/платья24_c.png" alt="Платья 24 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 24</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 25">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья25_a.png" alt="Платья 25 a">
+            <img src="assets/платья25_b.png" alt="Платья 25 b">
+            <img src="assets/платья25_c.png" alt="Платья 25 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 25</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 26">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья26_a.png" alt="Платья 26 a">
+            <img src="assets/платья26_b.png" alt="Платья 26 b">
+            <img src="assets/платья26_c.png" alt="Платья 26 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 26</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 27">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья27_a.png" alt="Платья 27 a">
+            <img src="assets/платья27_b.png" alt="Платья 27 b">
+            <img src="assets/платья27_c.png" alt="Платья 27 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 27</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 28">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья28_a.png" alt="Платья 28 a">
+            <img src="assets/платья28_b.png" alt="Платья 28 b">
+            <img src="assets/платья28_c.png" alt="Платья 28 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 28</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 29">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья29_a.png" alt="Платья 29 a">
+            <img src="assets/платья29_b.png" alt="Платья 29 b">
+            <img src="assets/платья29_c.png" alt="Платья 29 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 29</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 30">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья30_a.png" alt="Платья 30 a">
+            <img src="assets/платья30_b.png" alt="Платья 30 b">
+            <img src="assets/платья30_c.png" alt="Платья 30 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 30</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 31">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья31_a.png" alt="Платья 31 a">
+            <img src="assets/платья31_b.png" alt="Платья 31 b">
+            <img src="assets/платья31_c.png" alt="Платья 31 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 31</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 32">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья32_a.png" alt="Платья 32 a">
+            <img src="assets/платья32_b.png" alt="Платья 32 b">
+            <img src="assets/платья32_c.png" alt="Платья 32 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 32</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 33">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья33_a.png" alt="Платья 33 a">
+            <img src="assets/платья33_b.png" alt="Платья 33 b">
+            <img src="assets/платья33_c.png" alt="Платья 33 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 33</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 34">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья34_a.png" alt="Платья 34 a">
+            <img src="assets/платья34_b.png" alt="Платья 34 b">
+            <img src="assets/платья34_c.png" alt="Платья 34 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 34</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 35">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья35_a.png" alt="Платья 35 a">
+            <img src="assets/платья35_b.png" alt="Платья 35 b">
+            <img src="assets/платья35_c.png" alt="Платья 35 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 35</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 36">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья36_a.png" alt="Платья 36 a">
+            <img src="assets/платья36_b.png" alt="Платья 36 b">
+            <img src="assets/платья36_c.png" alt="Платья 36 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 36</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 37">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья37_a.png" alt="Платья 37 a">
+            <img src="assets/платья37_b.png" alt="Платья 37 b">
+            <img src="assets/платья37_c.png" alt="Платья 37 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 37</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 38">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья38_a.png" alt="Платья 38 a">
+            <img src="assets/платья38_b.png" alt="Платья 38 b">
+            <img src="assets/платья38_c.png" alt="Платья 38 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 38</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 39">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья39_a.png" alt="Платья 39 a">
+            <img src="assets/платья39_b.png" alt="Платья 39 b">
+            <img src="assets/платья39_c.png" alt="Платья 39 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 39</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 40">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья40_a.png" alt="Платья 40 a">
+            <img src="assets/платья40_b.png" alt="Платья 40 b">
+            <img src="assets/платья40_c.png" alt="Платья 40 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 40</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 41">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья41_a.png" alt="Платья 41 a">
+            <img src="assets/платья41_b.png" alt="Платья 41 b">
+            <img src="assets/платья41_c.png" alt="Платья 41 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 41</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 42">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья42_a.png" alt="Платья 42 a">
+            <img src="assets/платья42_b.png" alt="Платья 42 b">
+            <img src="assets/платья42_c.png" alt="Платья 42 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 42</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 43">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья43_a.png" alt="Платья 43 a">
+            <img src="assets/платья43_b.png" alt="Платья 43 b">
+            <img src="assets/платья43_c.png" alt="Платья 43 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 43</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 44">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья44_a.png" alt="Платья 44 a">
+            <img src="assets/платья44_b.png" alt="Платья 44 b">
+            <img src="assets/платья44_c.png" alt="Платья 44 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 44</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 45">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья45_a.png" alt="Платья 45 a">
+            <img src="assets/платья45_b.png" alt="Платья 45 b">
+            <img src="assets/платья45_c.png" alt="Платья 45 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 45</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 46">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья46_a.png" alt="Платья 46 a">
+            <img src="assets/платья46_b.png" alt="Платья 46 b">
+            <img src="assets/платья46_c.png" alt="Платья 46 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 46</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 47">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья47_a.png" alt="Платья 47 a">
+            <img src="assets/платья47_b.png" alt="Платья 47 b">
+            <img src="assets/платья47_c.png" alt="Платья 47 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 47</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 48">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья48_a.png" alt="Платья 48 a">
+            <img src="assets/платья48_b.png" alt="Платья 48 b">
+            <img src="assets/платья48_c.png" alt="Платья 48 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 48</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 49">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья49_a.png" alt="Платья 49 a">
+            <img src="assets/платья49_b.png" alt="Платья 49 b">
+            <img src="assets/платья49_c.png" alt="Платья 49 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 49</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 50">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья50_a.png" alt="Платья 50 a">
+            <img src="assets/платья50_b.png" alt="Платья 50 b">
+            <img src="assets/платья50_c.png" alt="Платья 50 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 50</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 1">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки1_a.png" alt="Пиджаки 1 a">
+            <img src="assets/пиджаки1_b.png" alt="Пиджаки 1 b">
+            <img src="assets/пиджаки1_c.png" alt="Пиджаки 1 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 1</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 2">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки2_a.png" alt="Пиджаки 2 a">
+            <img src="assets/пиджаки2_b.png" alt="Пиджаки 2 b">
+            <img src="assets/пиджаки2_c.png" alt="Пиджаки 2 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 2</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 3">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки3_a.png" alt="Пиджаки 3 a">
+            <img src="assets/пиджаки3_b.png" alt="Пиджаки 3 b">
+            <img src="assets/пиджаки3_c.png" alt="Пиджаки 3 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 3</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 4">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки4_a.png" alt="Пиджаки 4 a">
+            <img src="assets/пиджаки4_b.png" alt="Пиджаки 4 b">
+            <img src="assets/пиджаки4_c.png" alt="Пиджаки 4 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 4</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 5">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки5_a.png" alt="Пиджаки 5 a">
+            <img src="assets/пиджаки5_b.png" alt="Пиджаки 5 b">
+            <img src="assets/пиджаки5_c.png" alt="Пиджаки 5 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 5</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 6">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки6_a.png" alt="Пиджаки 6 a">
+            <img src="assets/пиджаки6_b.png" alt="Пиджаки 6 b">
+            <img src="assets/пиджаки6_c.png" alt="Пиджаки 6 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 6</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 7">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки7_a.png" alt="Пиджаки 7 a">
+            <img src="assets/пиджаки7_b.png" alt="Пиджаки 7 b">
+            <img src="assets/пиджаки7_c.png" alt="Пиджаки 7 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 7</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 8">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки8_a.png" alt="Пиджаки 8 a">
+            <img src="assets/пиджаки8_b.png" alt="Пиджаки 8 b">
+            <img src="assets/пиджаки8_c.png" alt="Пиджаки 8 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 8</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 9">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки9_a.png" alt="Пиджаки 9 a">
+            <img src="assets/пиджаки9_b.png" alt="Пиджаки 9 b">
+            <img src="assets/пиджаки9_c.png" alt="Пиджаки 9 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 9</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 10">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки10_a.png" alt="Пиджаки 10 a">
+            <img src="assets/пиджаки10_b.png" alt="Пиджаки 10 b">
+            <img src="assets/пиджаки10_c.png" alt="Пиджаки 10 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 10</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 1">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты1_a.png" alt="Корсеты 1 a">
+            <img src="assets/корсеты1_b.png" alt="Корсеты 1 b">
+            <img src="assets/корсеты1_c.png" alt="Корсеты 1 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 1</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 2">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты2_a.png" alt="Корсеты 2 a">
+            <img src="assets/корсеты2_b.png" alt="Корсеты 2 b">
+            <img src="assets/корсеты2_c.png" alt="Корсеты 2 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 2</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 3">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты3_a.png" alt="Корсеты 3 a">
+            <img src="assets/корсеты3_b.png" alt="Корсеты 3 b">
+            <img src="assets/корсеты3_c.png" alt="Корсеты 3 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 3</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 4">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты4_a.png" alt="Корсеты 4 a">
+            <img src="assets/корсеты4_b.png" alt="Корсеты 4 b">
+            <img src="assets/корсеты4_c.png" alt="Корсеты 4 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 4</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 5">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты5_a.png" alt="Корсеты 5 a">
+            <img src="assets/корсеты5_b.png" alt="Корсеты 5 b">
+            <img src="assets/корсеты5_c.png" alt="Корсеты 5 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 5</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 6">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты6_a.png" alt="Корсеты 6 a">
+            <img src="assets/корсеты6_b.png" alt="Корсеты 6 b">
+            <img src="assets/корсеты6_c.png" alt="Корсеты 6 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 6</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 7">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты7_a.png" alt="Корсеты 7 a">
+            <img src="assets/корсеты7_b.png" alt="Корсеты 7 b">
+            <img src="assets/корсеты7_c.png" alt="Корсеты 7 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 7</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 8">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты8_a.png" alt="Корсеты 8 a">
+            <img src="assets/корсеты8_b.png" alt="Корсеты 8 b">
+            <img src="assets/корсеты8_c.png" alt="Корсеты 8 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 8</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 9">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты9_a.png" alt="Корсеты 9 a">
+            <img src="assets/корсеты9_b.png" alt="Корсеты 9 b">
+            <img src="assets/корсеты9_c.png" alt="Корсеты 9 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 9</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 10">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты10_a.png" alt="Корсеты 10 a">
+            <img src="assets/корсеты10_b.png" alt="Корсеты 10 b">
+            <img src="assets/корсеты10_c.png" alt="Корсеты 10 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 10</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 1">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы1_a.png" alt="Костюмы 1 a">
+            <img src="assets/костюмы1_b.png" alt="Костюмы 1 b">
+            <img src="assets/костюмы1_c.png" alt="Костюмы 1 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 1</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 2">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы2_a.png" alt="Костюмы 2 a">
+            <img src="assets/костюмы2_b.png" alt="Костюмы 2 b">
+            <img src="assets/костюмы2_c.png" alt="Костюмы 2 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 2</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 3">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы3_a.png" alt="Костюмы 3 a">
+            <img src="assets/костюмы3_b.png" alt="Костюмы 3 b">
+            <img src="assets/костюмы3_c.png" alt="Костюмы 3 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 3</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 4">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы4_a.png" alt="Костюмы 4 a">
+            <img src="assets/костюмы4_b.png" alt="Костюмы 4 b">
+            <img src="assets/костюмы4_c.png" alt="Костюмы 4 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 4</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 5">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы5_a.png" alt="Костюмы 5 a">
+            <img src="assets/костюмы5_b.png" alt="Костюмы 5 b">
+            <img src="assets/костюмы5_c.png" alt="Костюмы 5 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 5</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 6">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы6_a.png" alt="Костюмы 6 a">
+            <img src="assets/костюмы6_b.png" alt="Костюмы 6 b">
+            <img src="assets/костюмы6_c.png" alt="Костюмы 6 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 6</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 7">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы7_a.png" alt="Костюмы 7 a">
+            <img src="assets/костюмы7_b.png" alt="Костюмы 7 b">
+            <img src="assets/костюмы7_c.png" alt="Костюмы 7 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 7</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 8">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы8_a.png" alt="Костюмы 8 a">
+            <img src="assets/костюмы8_b.png" alt="Костюмы 8 b">
+            <img src="assets/костюмы8_c.png" alt="Костюмы 8 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 8</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 9">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы9_a.png" alt="Костюмы 9 a">
+            <img src="assets/костюмы9_b.png" alt="Костюмы 9 b">
+            <img src="assets/костюмы9_c.png" alt="Костюмы 9 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 9</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 10">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы10_a.png" alt="Костюмы 10 a">
+            <img src="assets/костюмы10_b.png" alt="Костюмы 10 b">
+            <img src="assets/костюмы10_c.png" alt="Костюмы 10 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 10</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 1">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки1_a.png" alt="Юбки 1 a">
+            <img src="assets/юбки1_b.png" alt="Юбки 1 b">
+            <img src="assets/юбки1_c.png" alt="Юбки 1 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 1</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 2">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки2_a.png" alt="Юбки 2 a">
+            <img src="assets/юбки2_b.png" alt="Юбки 2 b">
+            <img src="assets/юбки2_c.png" alt="Юбки 2 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 2</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 3">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки3_a.png" alt="Юбки 3 a">
+            <img src="assets/юбки3_b.png" alt="Юбки 3 b">
+            <img src="assets/юбки3_c.png" alt="Юбки 3 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 3</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 4">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки4_a.png" alt="Юбки 4 a">
+            <img src="assets/юбки4_b.png" alt="Юбки 4 b">
+            <img src="assets/юбки4_c.png" alt="Юбки 4 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 4</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 5">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки5_a.png" alt="Юбки 5 a">
+            <img src="assets/юбки5_b.png" alt="Юбки 5 b">
+            <img src="assets/юбки5_c.png" alt="Юбки 5 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 5</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 6">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки6_a.png" alt="Юбки 6 a">
+            <img src="assets/юбки6_b.png" alt="Юбки 6 b">
+            <img src="assets/юбки6_c.png" alt="Юбки 6 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 6</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 7">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки7_a.png" alt="Юбки 7 a">
+            <img src="assets/юбки7_b.png" alt="Юбки 7 b">
+            <img src="assets/юбки7_c.png" alt="Юбки 7 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 7</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 8">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки8_a.png" alt="Юбки 8 a">
+            <img src="assets/юбки8_b.png" alt="Юбки 8 b">
+            <img src="assets/юбки8_c.png" alt="Юбки 8 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 8</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 9">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки9_a.png" alt="Юбки 9 a">
+            <img src="assets/юбки9_b.png" alt="Юбки 9 b">
+            <img src="assets/юбки9_c.png" alt="Юбки 9 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 9</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 10">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки10_a.png" alt="Юбки 10 a">
+            <img src="assets/юбки10_b.png" alt="Юбки 10 b">
+            <img src="assets/юбки10_c.png" alt="Юбки 10 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 10</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+    </section>
+
+  <main class="wrap" id="catalog">
+    <div class="filters">
+      <div class="filter-tabs">
+        <div class="tab active" data-filter="all">Все</div>
+        <div class="tab" data-filter="платья">Платья</div>
+        <div class="tab" data-filter="корсеты">Корсеты</div>
+        <div class="tab" data-filter="пиджаки">Пиджаки</div>
+        <div class="tab" data-filter="костюмы">Костюмы</div>
+        <div class="tab" data-filter="юбки">Юбки</div>
+      </div>
+      <label class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.2-4.2M10.8 18.6a7.8 7.8 0 1 1 0-15.6 7.8 7.8 0 0 1 0 15.6z" stroke="white" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="search" placeholder="Поиск по лотам..." />
+      </label>
+    </div>
+
+    <section class="grid" id="grid">
+      <!-- 8 Dress Lots -->
+      <!-- Dress 1 uses user's photos -->
+      <article class="card" data-category="платья" data-title="Платье «Aurora» атласное мини">
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/dress1_a.png" alt="Aurora 1">
+            <img src="assets/dress1_b.png" alt="Aurora 2">
+            <img src="assets/dress1_c.png" alt="Aurora 3">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta"><h3 class="title">Платье «Aurora»</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span><span class="badge">Новинка</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+      <article class="card" data-category="платья" data-title="Платье «Celeste» шёлковое миди">
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/dress2_a.png" alt="Dress 2 a">
+            <img src="assets/dress2_b.png" alt="Dress 2 b">
+            <img src="assets/dress2_c.png" alt="Dress 2 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta"><h3 class="title">Платье «Celeste» шёлковое миди</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–M</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+    
+      <article class="card" data-category="платья" data-title="Платье «Velvet Lily» бархат">
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/dress3_a.png" alt="Dress 3 a">
+            <img src="assets/dress3_b.png" alt="Dress 3 b">
+            <img src="assets/dress3_c.png" alt="Dress 3 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta"><h3 class="title">Платье «Velvet Lily» бархат</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: XS–M</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+    
+      <article class="card" data-category="платья" data-title="Платье «Pearl» вечернее с разрезом">
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/dress4_a.png" alt="Dress 4 a">
+            <img src="assets/dress4_b.png" alt="Dress 4 b">
+            <img src="assets/dress4_c.png" alt="Dress 4 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta"><h3 class="title">Платье «Pearl» вечернее с разрезом</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+    
+      <article class="card" data-category="платья" data-title="Платье «Noir Chic» с рукавами">
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/dress5_a.png" alt="Dress 5 a">
+            <img src="assets/dress5_b.png" alt="Dress 5 b">
+            <img src="assets/dress5_c.png" alt="Dress 5 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta"><h3 class="title">Платье «Noir Chic» с рукавами</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+    
+      <article class="card" data-category="платья" data-title="Платье «Sunrise» летнее">
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/dress6_a.png" alt="Dress 6 a">
+            <img src="assets/dress6_b.png" alt="Dress 6 b">
+            <img src="assets/dress6_c.png" alt="Dress 6 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta"><h3 class="title">Платье «Sunrise» летнее</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: XS–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+    
+      <article class="card" data-category="платья" data-title="Платье «Muse» однотон">
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/dress7_a.png" alt="Dress 7 a">
+            <img src="assets/dress7_b.png" alt="Dress 7 b">
+            <img src="assets/dress7_c.png" alt="Dress 7 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta"><h3 class="title">Платье «Muse» однотон</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–M</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+    
+      <article class="card" data-category="платья" data-title="Платье «Gala» струящееся">
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/dress8_a.png" alt="Dress 8 a">
+            <img src="assets/dress8_b.png" alt="Dress 8 b">
+            <img src="assets/dress8_c.png" alt="Dress 8 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta"><h3 class="title">Платье «Gala» струящееся</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: M–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+      <article class="card" data-category="платья" data-title="Платье «Royal»">
+  <div class="carousel">
+    <div class="arrow left">‹</div>
+    <div class="arrow right">›</div>
+    <div class="slides">
+      <img src="assets/dress9_a.png" alt="Dress 9 a">
+      <img src="assets/dress9_b.png" alt="Dress 9 b">
+      <img src="assets/dress9_c.png" alt="Dress 9 c">
+    </div>
+    <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+  <div class="meta">
+    <h3 class="title">Платье «Royal»</h3>
+    <div class="price-size"><span>100 AED</span><span>Размеры: S–M</span></div>
+    <div class="badges"><span class="badge">Платья</span></div>
+    <div class="buy">
+      <button class="btn primary">Купить</button>
+      <button class="btn ghost">В избранное</button>
+    </div>
+  </div>
+</article>
+    
+      <!-- Corsets -->
+      <article class="card" data-category="корсеты" data-title="Корсет «Sculpt» базовый">
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/corset1_a.png" alt="Corset 1 a">
+            <img src="assets/corset1_b.png" alt="Corset 1 b">
+            <img src="assets/corset1_c.png" alt="Corset 1 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta"><h3 class="title">Корсет «Sculpt»</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: XS–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+      <article class="card" data-category="корсеты" data-title="Корсет «Silhouette» с косточками">
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/corset2_a.png" alt="Corset 2 a">
+            <img src="assets/corset2_b.png" alt="Corset 2 b">
+            <img src="assets/corset2_c.png" alt="Corset 2 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta"><h3 class="title">Корсет «Silhouette»</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+    
+      <article class="card" data-category="платья" data-title="Платья 1">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья1_a.png" alt="Платья 1 a">
+            <img src="assets/платья1_b.png" alt="Платья 1 b">
+            <img src="assets/платья1_c.png" alt="Платья 1 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 1</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 2">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья2_a.png" alt="Платья 2 a">
+            <img src="assets/платья2_b.png" alt="Платья 2 b">
+            <img src="assets/платья2_c.png" alt="Платья 2 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 2</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 3">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья3_a.png" alt="Платья 3 a">
+            <img src="assets/платья3_b.png" alt="Платья 3 b">
+            <img src="assets/платья3_c.png" alt="Платья 3 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 3</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 4">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья4_a.png" alt="Платья 4 a">
+            <img src="assets/платья4_b.png" alt="Платья 4 b">
+            <img src="assets/платья4_c.png" alt="Платья 4 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 4</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 5">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья5_a.png" alt="Платья 5 a">
+            <img src="assets/платья5_b.png" alt="Платья 5 b">
+            <img src="assets/платья5_c.png" alt="Платья 5 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 5</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 6">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья6_a.png" alt="Платья 6 a">
+            <img src="assets/платья6_b.png" alt="Платья 6 b">
+            <img src="assets/платья6_c.png" alt="Платья 6 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 6</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 7">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья7_a.png" alt="Платья 7 a">
+            <img src="assets/платья7_b.png" alt="Платья 7 b">
+            <img src="assets/платья7_c.png" alt="Платья 7 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 7</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 8">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья8_a.png" alt="Платья 8 a">
+            <img src="assets/платья8_b.png" alt="Платья 8 b">
+            <img src="assets/платья8_c.png" alt="Платья 8 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 8</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 9">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья9_a.png" alt="Платья 9 a">
+            <img src="assets/платья9_b.png" alt="Платья 9 b">
+            <img src="assets/платья9_c.png" alt="Платья 9 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 9</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 10">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья10_a.png" alt="Платья 10 a">
+            <img src="assets/платья10_b.png" alt="Платья 10 b">
+            <img src="assets/платья10_c.png" alt="Платья 10 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 10</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 11">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья11_a.png" alt="Платья 11 a">
+            <img src="assets/платья11_b.png" alt="Платья 11 b">
+            <img src="assets/платья11_c.png" alt="Платья 11 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 11</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 12">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья12_a.png" alt="Платья 12 a">
+            <img src="assets/платья12_b.png" alt="Платья 12 b">
+            <img src="assets/платья12_c.png" alt="Платья 12 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 12</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 13">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья13_a.png" alt="Платья 13 a">
+            <img src="assets/платья13_b.png" alt="Платья 13 b">
+            <img src="assets/платья13_c.png" alt="Платья 13 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 13</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 14">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья14_a.png" alt="Платья 14 a">
+            <img src="assets/платья14_b.png" alt="Платья 14 b">
+            <img src="assets/платья14_c.png" alt="Платья 14 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 14</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 15">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья15_a.png" alt="Платья 15 a">
+            <img src="assets/платья15_b.png" alt="Платья 15 b">
+            <img src="assets/платья15_c.png" alt="Платья 15 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 15</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 16">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья16_a.png" alt="Платья 16 a">
+            <img src="assets/платья16_b.png" alt="Платья 16 b">
+            <img src="assets/платья16_c.png" alt="Платья 16 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 16</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 17">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья17_a.png" alt="Платья 17 a">
+            <img src="assets/платья17_b.png" alt="Платья 17 b">
+            <img src="assets/платья17_c.png" alt="Платья 17 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 17</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 18">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья18_a.png" alt="Платья 18 a">
+            <img src="assets/платья18_b.png" alt="Платья 18 b">
+            <img src="assets/платья18_c.png" alt="Платья 18 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 18</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 19">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья19_a.png" alt="Платья 19 a">
+            <img src="assets/платья19_b.png" alt="Платья 19 b">
+            <img src="assets/платья19_c.png" alt="Платья 19 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 19</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 20">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья20_a.png" alt="Платья 20 a">
+            <img src="assets/платья20_b.png" alt="Платья 20 b">
+            <img src="assets/платья20_c.png" alt="Платья 20 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 20</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 21">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья21_a.png" alt="Платья 21 a">
+            <img src="assets/платья21_b.png" alt="Платья 21 b">
+            <img src="assets/платья21_c.png" alt="Платья 21 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 21</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 22">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья22_a.png" alt="Платья 22 a">
+            <img src="assets/платья22_b.png" alt="Платья 22 b">
+            <img src="assets/платья22_c.png" alt="Платья 22 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 22</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 23">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья23_a.png" alt="Платья 23 a">
+            <img src="assets/платья23_b.png" alt="Платья 23 b">
+            <img src="assets/платья23_c.png" alt="Платья 23 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 23</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 24">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья24_a.png" alt="Платья 24 a">
+            <img src="assets/платья24_b.png" alt="Платья 24 b">
+            <img src="assets/платья24_c.png" alt="Платья 24 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 24</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 25">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья25_a.png" alt="Платья 25 a">
+            <img src="assets/платья25_b.png" alt="Платья 25 b">
+            <img src="assets/платья25_c.png" alt="Платья 25 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 25</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 26">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья26_a.png" alt="Платья 26 a">
+            <img src="assets/платья26_b.png" alt="Платья 26 b">
+            <img src="assets/платья26_c.png" alt="Платья 26 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 26</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 27">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья27_a.png" alt="Платья 27 a">
+            <img src="assets/платья27_b.png" alt="Платья 27 b">
+            <img src="assets/платья27_c.png" alt="Платья 27 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 27</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 28">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья28_a.png" alt="Платья 28 a">
+            <img src="assets/платья28_b.png" alt="Платья 28 b">
+            <img src="assets/платья28_c.png" alt="Платья 28 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 28</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 29">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья29_a.png" alt="Платья 29 a">
+            <img src="assets/платья29_b.png" alt="Платья 29 b">
+            <img src="assets/платья29_c.png" alt="Платья 29 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 29</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 30">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья30_a.png" alt="Платья 30 a">
+            <img src="assets/платья30_b.png" alt="Платья 30 b">
+            <img src="assets/платья30_c.png" alt="Платья 30 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 30</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 31">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья31_a.png" alt="Платья 31 a">
+            <img src="assets/платья31_b.png" alt="Платья 31 b">
+            <img src="assets/платья31_c.png" alt="Платья 31 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 31</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 32">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья32_a.png" alt="Платья 32 a">
+            <img src="assets/платья32_b.png" alt="Платья 32 b">
+            <img src="assets/платья32_c.png" alt="Платья 32 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 32</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 33">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья33_a.png" alt="Платья 33 a">
+            <img src="assets/платья33_b.png" alt="Платья 33 b">
+            <img src="assets/платья33_c.png" alt="Платья 33 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 33</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 34">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья34_a.png" alt="Платья 34 a">
+            <img src="assets/платья34_b.png" alt="Платья 34 b">
+            <img src="assets/платья34_c.png" alt="Платья 34 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 34</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 35">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья35_a.png" alt="Платья 35 a">
+            <img src="assets/платья35_b.png" alt="Платья 35 b">
+            <img src="assets/платья35_c.png" alt="Платья 35 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 35</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 36">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья36_a.png" alt="Платья 36 a">
+            <img src="assets/платья36_b.png" alt="Платья 36 b">
+            <img src="assets/платья36_c.png" alt="Платья 36 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 36</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 37">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья37_a.png" alt="Платья 37 a">
+            <img src="assets/платья37_b.png" alt="Платья 37 b">
+            <img src="assets/платья37_c.png" alt="Платья 37 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 37</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 38">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья38_a.png" alt="Платья 38 a">
+            <img src="assets/платья38_b.png" alt="Платья 38 b">
+            <img src="assets/платья38_c.png" alt="Платья 38 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 38</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 39">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья39_a.png" alt="Платья 39 a">
+            <img src="assets/платья39_b.png" alt="Платья 39 b">
+            <img src="assets/платья39_c.png" alt="Платья 39 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 39</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 40">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья40_a.png" alt="Платья 40 a">
+            <img src="assets/платья40_b.png" alt="Платья 40 b">
+            <img src="assets/платья40_c.png" alt="Платья 40 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 40</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 41">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья41_a.png" alt="Платья 41 a">
+            <img src="assets/платья41_b.png" alt="Платья 41 b">
+            <img src="assets/платья41_c.png" alt="Платья 41 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 41</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 42">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья42_a.png" alt="Платья 42 a">
+            <img src="assets/платья42_b.png" alt="Платья 42 b">
+            <img src="assets/платья42_c.png" alt="Платья 42 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 42</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 43">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья43_a.png" alt="Платья 43 a">
+            <img src="assets/платья43_b.png" alt="Платья 43 b">
+            <img src="assets/платья43_c.png" alt="Платья 43 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 43</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 44">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья44_a.png" alt="Платья 44 a">
+            <img src="assets/платья44_b.png" alt="Платья 44 b">
+            <img src="assets/платья44_c.png" alt="Платья 44 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 44</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 45">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья45_a.png" alt="Платья 45 a">
+            <img src="assets/платья45_b.png" alt="Платья 45 b">
+            <img src="assets/платья45_c.png" alt="Платья 45 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 45</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 46">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья46_a.png" alt="Платья 46 a">
+            <img src="assets/платья46_b.png" alt="Платья 46 b">
+            <img src="assets/платья46_c.png" alt="Платья 46 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 46</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 47">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья47_a.png" alt="Платья 47 a">
+            <img src="assets/платья47_b.png" alt="Платья 47 b">
+            <img src="assets/платья47_c.png" alt="Платья 47 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 47</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 48">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья48_a.png" alt="Платья 48 a">
+            <img src="assets/платья48_b.png" alt="Платья 48 b">
+            <img src="assets/платья48_c.png" alt="Платья 48 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 48</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 49">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья49_a.png" alt="Платья 49 a">
+            <img src="assets/платья49_b.png" alt="Платья 49 b">
+            <img src="assets/платья49_c.png" alt="Платья 49 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 49</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="платья" data-title="Платья 50">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/платья50_a.png" alt="Платья 50 a">
+            <img src="assets/платья50_b.png" alt="Платья 50 b">
+            <img src="assets/платья50_c.png" alt="Платья 50 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Платья 50</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Платья</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 1">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки1_a.png" alt="Пиджаки 1 a">
+            <img src="assets/пиджаки1_b.png" alt="Пиджаки 1 b">
+            <img src="assets/пиджаки1_c.png" alt="Пиджаки 1 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 1</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 2">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки2_a.png" alt="Пиджаки 2 a">
+            <img src="assets/пиджаки2_b.png" alt="Пиджаки 2 b">
+            <img src="assets/пиджаки2_c.png" alt="Пиджаки 2 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 2</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 3">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки3_a.png" alt="Пиджаки 3 a">
+            <img src="assets/пиджаки3_b.png" alt="Пиджаки 3 b">
+            <img src="assets/пиджаки3_c.png" alt="Пиджаки 3 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 3</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 4">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки4_a.png" alt="Пиджаки 4 a">
+            <img src="assets/пиджаки4_b.png" alt="Пиджаки 4 b">
+            <img src="assets/пиджаки4_c.png" alt="Пиджаки 4 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 4</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 5">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки5_a.png" alt="Пиджаки 5 a">
+            <img src="assets/пиджаки5_b.png" alt="Пиджаки 5 b">
+            <img src="assets/пиджаки5_c.png" alt="Пиджаки 5 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 5</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 6">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки6_a.png" alt="Пиджаки 6 a">
+            <img src="assets/пиджаки6_b.png" alt="Пиджаки 6 b">
+            <img src="assets/пиджаки6_c.png" alt="Пиджаки 6 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 6</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 7">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки7_a.png" alt="Пиджаки 7 a">
+            <img src="assets/пиджаки7_b.png" alt="Пиджаки 7 b">
+            <img src="assets/пиджаки7_c.png" alt="Пиджаки 7 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 7</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 8">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки8_a.png" alt="Пиджаки 8 a">
+            <img src="assets/пиджаки8_b.png" alt="Пиджаки 8 b">
+            <img src="assets/пиджаки8_c.png" alt="Пиджаки 8 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 8</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 9">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки9_a.png" alt="Пиджаки 9 a">
+            <img src="assets/пиджаки9_b.png" alt="Пиджаки 9 b">
+            <img src="assets/пиджаки9_c.png" alt="Пиджаки 9 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 9</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджаки 10">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/пиджаки10_a.png" alt="Пиджаки 10 a">
+            <img src="assets/пиджаки10_b.png" alt="Пиджаки 10 b">
+            <img src="assets/пиджаки10_c.png" alt="Пиджаки 10 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджаки 10</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 1">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты1_a.png" alt="Корсеты 1 a">
+            <img src="assets/корсеты1_b.png" alt="Корсеты 1 b">
+            <img src="assets/корсеты1_c.png" alt="Корсеты 1 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 1</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 2">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты2_a.png" alt="Корсеты 2 a">
+            <img src="assets/корсеты2_b.png" alt="Корсеты 2 b">
+            <img src="assets/корсеты2_c.png" alt="Корсеты 2 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 2</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 3">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты3_a.png" alt="Корсеты 3 a">
+            <img src="assets/корсеты3_b.png" alt="Корсеты 3 b">
+            <img src="assets/корсеты3_c.png" alt="Корсеты 3 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 3</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 4">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты4_a.png" alt="Корсеты 4 a">
+            <img src="assets/корсеты4_b.png" alt="Корсеты 4 b">
+            <img src="assets/корсеты4_c.png" alt="Корсеты 4 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 4</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 5">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты5_a.png" alt="Корсеты 5 a">
+            <img src="assets/корсеты5_b.png" alt="Корсеты 5 b">
+            <img src="assets/корсеты5_c.png" alt="Корсеты 5 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 5</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 6">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты6_a.png" alt="Корсеты 6 a">
+            <img src="assets/корсеты6_b.png" alt="Корсеты 6 b">
+            <img src="assets/корсеты6_c.png" alt="Корсеты 6 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 6</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 7">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты7_a.png" alt="Корсеты 7 a">
+            <img src="assets/корсеты7_b.png" alt="Корсеты 7 b">
+            <img src="assets/корсеты7_c.png" alt="Корсеты 7 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 7</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 8">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты8_a.png" alt="Корсеты 8 a">
+            <img src="assets/корсеты8_b.png" alt="Корсеты 8 b">
+            <img src="assets/корсеты8_c.png" alt="Корсеты 8 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 8</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 9">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты9_a.png" alt="Корсеты 9 a">
+            <img src="assets/корсеты9_b.png" alt="Корсеты 9 b">
+            <img src="assets/корсеты9_c.png" alt="Корсеты 9 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 9</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="корсеты" data-title="Корсеты 10">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/корсеты10_a.png" alt="Корсеты 10 a">
+            <img src="assets/корсеты10_b.png" alt="Корсеты 10 b">
+            <img src="assets/корсеты10_c.png" alt="Корсеты 10 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Корсеты 10</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Корсеты</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 1">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы1_a.png" alt="Костюмы 1 a">
+            <img src="assets/костюмы1_b.png" alt="Костюмы 1 b">
+            <img src="assets/костюмы1_c.png" alt="Костюмы 1 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 1</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 2">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы2_a.png" alt="Костюмы 2 a">
+            <img src="assets/костюмы2_b.png" alt="Костюмы 2 b">
+            <img src="assets/костюмы2_c.png" alt="Костюмы 2 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 2</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 3">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы3_a.png" alt="Костюмы 3 a">
+            <img src="assets/костюмы3_b.png" alt="Костюмы 3 b">
+            <img src="assets/костюмы3_c.png" alt="Костюмы 3 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 3</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 4">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы4_a.png" alt="Костюмы 4 a">
+            <img src="assets/костюмы4_b.png" alt="Костюмы 4 b">
+            <img src="assets/костюмы4_c.png" alt="Костюмы 4 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 4</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 5">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы5_a.png" alt="Костюмы 5 a">
+            <img src="assets/костюмы5_b.png" alt="Костюмы 5 b">
+            <img src="assets/костюмы5_c.png" alt="Костюмы 5 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 5</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 6">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы6_a.png" alt="Костюмы 6 a">
+            <img src="assets/костюмы6_b.png" alt="Костюмы 6 b">
+            <img src="assets/костюмы6_c.png" alt="Костюмы 6 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 6</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 7">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы7_a.png" alt="Костюмы 7 a">
+            <img src="assets/костюмы7_b.png" alt="Костюмы 7 b">
+            <img src="assets/костюмы7_c.png" alt="Костюмы 7 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 7</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 8">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы8_a.png" alt="Костюмы 8 a">
+            <img src="assets/костюмы8_b.png" alt="Костюмы 8 b">
+            <img src="assets/костюмы8_c.png" alt="Костюмы 8 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 8</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 9">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы9_a.png" alt="Костюмы 9 a">
+            <img src="assets/костюмы9_b.png" alt="Костюмы 9 b">
+            <img src="assets/костюмы9_c.png" alt="Костюмы 9 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 9</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="костюмы" data-title="Костюмы 10">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/костюмы10_a.png" alt="Костюмы 10 a">
+            <img src="assets/костюмы10_b.png" alt="Костюмы 10 b">
+            <img src="assets/костюмы10_c.png" alt="Костюмы 10 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Костюмы 10</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Костюмы</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 1">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки1_a.png" alt="Юбки 1 a">
+            <img src="assets/юбки1_b.png" alt="Юбки 1 b">
+            <img src="assets/юбки1_c.png" alt="Юбки 1 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 1</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 2">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки2_a.png" alt="Юбки 2 a">
+            <img src="assets/юбки2_b.png" alt="Юбки 2 b">
+            <img src="assets/юбки2_c.png" alt="Юбки 2 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 2</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 3">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки3_a.png" alt="Юбки 3 a">
+            <img src="assets/юбки3_b.png" alt="Юбки 3 b">
+            <img src="assets/юбки3_c.png" alt="Юбки 3 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 3</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 4">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки4_a.png" alt="Юбки 4 a">
+            <img src="assets/юбки4_b.png" alt="Юбки 4 b">
+            <img src="assets/юбки4_c.png" alt="Юбки 4 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 4</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 5">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки5_a.png" alt="Юбки 5 a">
+            <img src="assets/юбки5_b.png" alt="Юбки 5 b">
+            <img src="assets/юбки5_c.png" alt="Юбки 5 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 5</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 6">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки6_a.png" alt="Юбки 6 a">
+            <img src="assets/юбки6_b.png" alt="Юбки 6 b">
+            <img src="assets/юбки6_c.png" alt="Юбки 6 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 6</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 7">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки7_a.png" alt="Юбки 7 a">
+            <img src="assets/юбки7_b.png" alt="Юбки 7 b">
+            <img src="assets/юбки7_c.png" alt="Юбки 7 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 7</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 8">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки8_a.png" alt="Юбки 8 a">
+            <img src="assets/юбки8_b.png" alt="Юбки 8 b">
+            <img src="assets/юбки8_c.png" alt="Юбки 8 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 8</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 9">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки9_a.png" alt="Юбки 9 a">
+            <img src="assets/юбки9_b.png" alt="Юбки 9 b">
+            <img src="assets/юбки9_c.png" alt="Юбки 9 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 9</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="юбки" data-title="Юбки 10">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/юбки10_a.png" alt="Юбки 10 a">
+            <img src="assets/юбки10_b.png" alt="Юбки 10 b">
+            <img src="assets/юбки10_c.png" alt="Юбки 10 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Юбки 10</h3>
+          <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
+          <div class="badges"><span class="badge">Юбки</span></div>
+          <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
+        </div>
+      </article>
+
+    </section>
+
+    <nav class="pager" id="pager"></nav>
+  </main>
+
+  <footer>
+    <div class="wrap footgrid">
+      <div>
+        <div class="footbrand"><div class="brand-badge"></div><strong>Queen_Anasteisha</strong></div>
+        <p class="tiny">Бутик женской одежды. Доставка по ОАЭ и в СНГ.</p>
+      </div>
+      <div>
+        <strong>Категории</strong>
+        <p class="tiny">Платья, Корсеты, Пиджаки, Костюмы, Юбки</p>
+      </div>
+      <div>
+        <strong>Контакты</strong>
+        <p class="tiny"><a href="https://instagram.com/anaqueen_shop" target="_blank">Instagram</a> • <a href="https://wa.me/971585085529" target="_blank">WhatsApp</a> • <a href="https://t.me/queen_anasteisha" target="_blank">Telegram</a></p>
+      </div>
+    </div>
+  </footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+// ---------- STATE
+const state = { filter:'all', query:'', page:1, pageSize:6 };
+
+// ---------- ELEMENTS
+const tabs = document.querySelectorAll('.tab');
+const allCards = Array.from(document.querySelectorAll('.card'));
+const searchInput = document.getElementById('search');
+const grid = document.getElementById('grid');
+const pager = document.getElementById('pager');
+
+// ---------- FILTERS + SEARCH + PAGINATION
+function getFilteredCards() {
+  return allCards.filter(card => {
+    const cat = card.dataset.category;
+    const title = (card.dataset.title || '').toLowerCase();
+    const okCat = state.filter === 'all' || cat === state.filter;
+    const okSearch = !state.query || title.includes(state.query);
+    return okCat && okSearch;
+  });
+}
+
+function renderPager(pages) {
+  if (!pager) return;
+  if (pages <= 1) { pager.innerHTML = ''; pager.style.display = 'none'; return; }
+  pager.style.display = 'flex';
+  const btn = (label, page, disabled=false, active=false) =>
+    `<button class="page-btn ${active?'active':''}" data-page="${page}" ${disabled?'disabled':''}>${label}</button>`;
+  let html = '';
+  html += btn('‹', state.page-1, state.page===1);
+  const addPage = p => html += btn(p, p, false, p===state.page);
+  if (pages <= 7) {
+    for (let p=1;p<=pages;p++) addPage(p);
+  } else {
+    addPage(1);
+    if (state.page > 3) html += '<span class="dots-ellipsis">…</span>';
+    const start = Math.max(2, state.page - 1);
+    const end = Math.min(pages - 1, state.page + 1);
+    for (let p = start; p <= end; p++) addPage(p);
+    if (state.page < pages - 2) html += '<span class="dots-ellipsis">…</span>';
+    addPage(pages);
+  }
+  html += btn('›', state.page+1, state.page===pages);
+  pager.innerHTML = html;
+  pager.querySelectorAll('.page-btn').forEach(b => b.addEventListener('click', () => {
+    state.page = Number(b.dataset.page);
+    render();
+    if (grid) window.scrollTo({top: grid.offsetTop - 80, behavior:'smooth'});
+  }));
+}
+
+function render() {
+  const filtered = getFilteredCards();
+  const total = filtered.length;
+  const pages = Math.max(1, Math.ceil(total / state.pageSize));
+  if (state.page > pages) state.page = pages;
+
+  // hide all
+  allCards.forEach(c => c.style.display = 'none');
+  // show current slice
+  const start = (state.page - 1) * state.pageSize;
+  filtered.slice(start, start + state.pageSize).forEach(c => c.style.display = '');
+
+  renderPager(pages);
+}
+
+// tab click
+tabs.forEach(t => t.addEventListener('click', () => {
+  tabs.forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  state.filter = t.dataset.filter;
+  state.page = 1;
+  render();
+}));
+
+// search input
+if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    state.query = (searchInput.value || '').trim().toLowerCase();
+    state.page = 1;
+    render();
+  });
+}
+
+// ---------- CAROUSELS (fixed & resilient)
+function initCarousel(carousel) {
+  const slides = carousel.querySelector('.slides');
+  const images = slides ? slides.querySelectorAll('img') : [];
+  if (!slides || !images.length) return;
+
+  // build dots based on images count (replaces hardcoded dots)
+  let dotsWrap = carousel.querySelector('.dots');
+  if (!dotsWrap) {
+    dotsWrap = document.createElement('div');
+    dotsWrap.className = 'dots';
+    carousel.appendChild(dotsWrap);
+  }
+  dotsWrap.innerHTML = '';
+  images.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    dotsWrap.appendChild(d);
+  });
+
+  let idx = 0;
+  const left = carousel.querySelector('.arrow.left');
+  const right = carousel.querySelector('.arrow.right');
+  const dots = () => dotsWrap.querySelectorAll('.dot');
+
+  function update() {
+    // correct shift: move by 100% per slide
+    slides.style.transform = 'translateX(-' + (idx * 100) + '%)';
+    dots().forEach((d,i)=> d.classList.toggle('active', i===idx));
+  }
+
+  left && left.addEventListener('click', () => { idx = (idx - 1 + images.length) % images.length; update(); restart(); });
+  right && right.addEventListener('click', () => { idx = (idx + 1) % images.length; update(); restart(); });
+  dots().forEach((d,i)=> d.addEventListener('click', ()=>{ idx=i; update(); restart(); }));
+
+  let timer = setInterval(() => { idx = (idx + 1) % images.length; update(); }, 3500);
+  function restart(){ clearInterval(timer); timer = setInterval(() => { idx = (idx + 1) % images.length; update(); }, 3500); }
+
+  update();
+}
+
+document.querySelectorAll('.carousel').forEach(initCarousel);
+
+// ---------- WhatsApp buy
+document.querySelectorAll('.btn.primary').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const title = btn.closest('.card').querySelector('.title').textContent;
+    window.open('https://wa.me/971585085529?text=' + encodeURIComponent('Здравствуйте! Хочу заказать: ' + title), '_blank');
+  });
+});
+
+// initial render
+render();
+});
+</script>
+
+</body>
+</html>
