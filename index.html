@@ -43,7 +43,7 @@
     .search{display:flex;align-items:center;background:var(--soft);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:8px 12px;gap:8px;min-width:240px;flex:1;max-width:320px;}
     .search input{background:transparent;border:none;outline:none;color:var(--text);width:100%}
 
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin:10px 0 24px;}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin:10px 0 60px;}
     .card{grid-column:span 12;background:#141725;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow);}
     @media(min-width:640px){.card{grid-column: span 6;}}
     @media(min-width:1024px){.card{grid-column: span 4;}}
@@ -70,13 +70,6 @@
     .footbrand{display:flex;align-items:center;gap:12px}
     .footbrand .brand-badge{width:42px;height:42px}
     .tiny{font-size:12px;color:#a7acc2}
-
-    /* Pager */
-    .pager{display:flex;gap:8px;justify-content:center;align-items:center;margin:6px 0 60px;}
-    .page-btn{padding:10px 14px;border-radius:10px;background:var(--soft);border:1px solid rgba(255,255,255,.08);color:var(--text);font-weight:800;cursor:pointer}
-    .page-btn.active{background:linear-gradient(135deg,var(--accent-2),#98deff);color:#071018}
-    .page-btn:disabled{opacity:.5;cursor:default}
-    .dots-ellipsis{opacity:.7;padding:0 4px}
   </style>
 </head>
 <body>
@@ -134,18 +127,16 @@
     </div>
 
     <section class="grid" id="grid">
-      <!-- 8 Dress Lots + Royal + 2 Corsets (пример) -->
+      <!-- 8 Dress Lots -->
       <!-- Dress 1 uses user's photos -->
       <article class="card" data-category="платья" data-title="Платье «Aurora» атласное мини">
-        <div class="carousel">
-          <div class="arrow left">‹</div>
-          <div class="arrow right">›</div>
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
           <div class="slides">
             <img src="assets/dress1_a.png" alt="Aurora 1">
             <img src="assets/dress1_b.png" alt="Aurora 2">
             <img src="assets/dress1_c.png" alt="Aurora 3">
           </div>
-          <div class="dots"></div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
         </div>
         <div class="meta"><h3 class="title">Платье «Aurora»</h3>
           <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
@@ -155,15 +146,13 @@
       </article>
 
       <article class="card" data-category="платья" data-title="Платье «Celeste» шёлковое миди">
-        <div class="carousel">
-          <div class="arrow left">‹</div>
-          <div class="arrow right">›</div>
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
           <div class="slides">
             <img src="assets/dress2_a.png" alt="Dress 2 a">
             <img src="assets/dress2_b.png" alt="Dress 2 b">
             <img src="assets/dress2_c.png" alt="Dress 2 c">
           </div>
-          <div class="dots"></div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
         </div>
         <div class="meta"><h3 class="title">Платье «Celeste» шёлковое миди</h3>
           <div class="price-size"><span>100 AED</span><span>Размеры: S–M</span></div>
@@ -173,15 +162,13 @@
       </article>
     
       <article class="card" data-category="платья" data-title="Платье «Velvet Lily» бархат">
-        <div class="carousel">
-          <div class="arrow left">‹</div>
-          <div class="arrow right">›</div>
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
           <div class="slides">
             <img src="assets/dress3_a.png" alt="Dress 3 a">
             <img src="assets/dress3_b.png" alt="Dress 3 b">
             <img src="assets/dress3_c.png" alt="Dress 3 c">
           </div>
-          <div class="dots"></div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
         </div>
         <div class="meta"><h3 class="title">Платье «Velvet Lily» бархат</h3>
           <div class="price-size"><span>100 AED</span><span>Размеры: XS–M</span></div>
@@ -191,15 +178,13 @@
       </article>
     
       <article class="card" data-category="платья" data-title="Платье «Pearl» вечернее с разрезом">
-        <div class="carousel">
-          <div class="arrow left">‹</div>
-          <div class="arrow right">›</div>
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
           <div class="slides">
             <img src="assets/dress4_a.png" alt="Dress 4 a">
             <img src="assets/dress4_b.png" alt="Dress 4 b">
             <img src="assets/dress4_c.png" alt="Dress 4 c">
           </div>
-          <div class="dots"></div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
         </div>
         <div class="meta"><h3 class="title">Платье «Pearl» вечернее с разрезом</h3>
           <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
@@ -209,15 +194,13 @@
       </article>
     
       <article class="card" data-category="платья" data-title="Платье «Noir Chic» с рукавами">
-        <div class="carousel">
-          <div class="arrow left">‹</div>
-          <div class="arrow right">›</div>
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
           <div class="slides">
             <img src="assets/dress5_a.png" alt="Dress 5 a">
             <img src="assets/dress5_b.png" alt="Dress 5 b">
             <img src="assets/dress5_c.png" alt="Dress 5 c">
           </div>
-          <div class="dots"></div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
         </div>
         <div class="meta"><h3 class="title">Платье «Noir Chic» с рукавами</h3>
           <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
@@ -227,15 +210,13 @@
       </article>
     
       <article class="card" data-category="платья" data-title="Платье «Sunrise» летнее">
-        <div class="carousel">
-          <div class="arrow left">‹</div>
-          <div class="arrow right">›</div>
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
           <div class="slides">
             <img src="assets/dress6_a.png" alt="Dress 6 a">
             <img src="assets/dress6_b.png" alt="Dress 6 b">
             <img src="assets/dress6_c.png" alt="Dress 6 c">
           </div>
-          <div class="dots"></div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
         </div>
         <div class="meta"><h3 class="title">Платье «Sunrise» летнее</h3>
           <div class="price-size"><span>100 AED</span><span>Размеры: XS–L</span></div>
@@ -245,15 +226,13 @@
       </article>
     
       <article class="card" data-category="платья" data-title="Платье «Muse» однотон">
-        <div class="carousel">
-          <div class="arrow left">‹</div>
-          <div class="arrow right">›</div>
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
           <div class="slides">
             <img src="assets/dress7_a.png" alt="Dress 7 a">
             <img src="assets/dress7_b.png" alt="Dress 7 b">
             <img src="assets/dress7_c.png" alt="Dress 7 c">
           </div>
-          <div class="dots"></div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
         </div>
         <div class="meta"><h3 class="title">Платье «Muse» однотон</h3>
           <div class="price-size"><span>100 AED</span><span>Размеры: S–M</span></div>
@@ -263,15 +242,13 @@
       </article>
     
       <article class="card" data-category="платья" data-title="Платье «Gala» струящееся">
-        <div class="carousel">
-          <div class="arrow left">‹</div>
-          <div class="arrow right">›</div>
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
           <div class="slides">
             <img src="assets/dress8_a.png" alt="Dress 8 a">
             <img src="assets/dress8_b.png" alt="Dress 8 b">
             <img src="assets/dress8_c.png" alt="Dress 8 c">
           </div>
-          <div class="dots"></div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
         </div>
         <div class="meta"><h3 class="title">Платье «Gala» струящееся</h3>
           <div class="price-size"><span>100 AED</span><span>Размеры: M–L</span></div>
@@ -279,40 +256,37 @@
           <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
         </div>
       </article>
-
       <article class="card" data-category="платья" data-title="Платье «Royal»">
-        <div class="carousel">
-          <div class="arrow left">‹</div>
-          <div class="arrow right">›</div>
-          <div class="slides">
-            <img src="assets/dress9_a.png" alt="Dress 9 a">
-            <img src="assets/dress9_b.png" alt="Dress 9 b">
-            <img src="assets/dress9_c.png" alt="Dress 9 c">
-          </div>
-          <div class="dots"></div>
-        </div>
-        <div class="meta">
-          <h3 class="title">Платье «Royal»</h3>
-          <div class="price-size"><span>100 AED</span><span>Размеры: S–M</span></div>
-          <div class="badges"><span class="badge">Платья</span></div>
-          <div class="buy">
-            <button class="btn primary">Купить</button>
-            <button class="btn ghost">В избранное</button>
-          </div>
-        </div>
-      </article>
+  <div class="carousel">
+    <div class="arrow left">‹</div>
+    <div class="arrow right">›</div>
+    <div class="slides">
+      <img src="assets/dress9_a.png" alt="Dress 9 a">
+      <img src="assets/dress9_b.png" alt="Dress 9 b">
+      <img src="assets/dress9_c.png" alt="Dress 9 c">
+    </div>
+    <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+  <div class="meta">
+    <h3 class="title">Платье «Royal»</h3>
+    <div class="price-size"><span>100 AED</span><span>Размеры: S–M</span></div>
+    <div class="badges"><span class="badge">Платья</span></div>
+    <div class="buy">
+      <button class="btn primary">Купить</button>
+      <button class="btn ghost">В избранное</button>
+    </div>
+  </div>
+</article>
     
       <!-- Corsets -->
       <article class="card" data-category="корсеты" data-title="Корсет «Sculpt» базовый">
-        <div class="carousel">
-          <div class="arrow left">‹</div>
-          <div class="arrow right">›</div>
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
           <div class="slides">
             <img src="assets/corset1_a.png" alt="Corset 1 a">
             <img src="assets/corset1_b.png" alt="Corset 1 b">
             <img src="assets/corset1_c.png" alt="Corset 1 c">
           </div>
-          <div class="dots"></div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
         </div>
         <div class="meta"><h3 class="title">Корсет «Sculpt»</h3>
           <div class="price-size"><span>100 AED</span><span>Размеры: XS–L</span></div>
@@ -322,15 +296,13 @@
       </article>
 
       <article class="card" data-category="корсеты" data-title="Корсет «Silhouette» с косточками">
-        <div class="carousel">
-          <div class="arrow left">‹</div>
-          <div class="arrow right">›</div>
+        <div class="carousel"><div class="arrow left">‹</div><div class="arrow right">›</div>
           <div class="slides">
             <img src="assets/corset2_a.png" alt="Corset 2 a">
             <img src="assets/corset2_b.png" alt="Corset 2 b">
             <img src="assets/corset2_c.png" alt="Corset 2 c">
           </div>
-          <div class="dots"></div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
         </div>
         <div class="meta"><h3 class="title">Корсет «Silhouette»</h3>
           <div class="price-size"><span>100 AED</span><span>Размеры: S–L</span></div>
@@ -340,7 +312,6 @@
       </article>
     </section>
 
-    <!-- Pager -->
     <nav class="pager" id="pager"></nav>
   </main>
 
@@ -361,20 +332,22 @@
     </div>
   </footer>
 
+
 <script>
+document.addEventListener('DOMContentLoaded', () => {
 // ---------- STATE
 const state = { filter:'all', query:'', page:1, pageSize:6 };
 
 // ---------- ELEMENTS
 const tabs = document.querySelectorAll('.tab');
-const cards = Array.from(document.querySelectorAll('.card'));
+const allCards = Array.from(document.querySelectorAll('.card'));
 const searchInput = document.getElementById('search');
 const grid = document.getElementById('grid');
 const pager = document.getElementById('pager');
 
 // ---------- FILTERS + SEARCH + PAGINATION
 function getFilteredCards() {
-  return cards.filter(card => {
+  return allCards.filter(card => {
     const cat = card.dataset.category;
     const title = (card.dataset.title || '').toLowerCase();
     const okCat = state.filter === 'all' || cat === state.filter;
@@ -388,7 +361,7 @@ function renderPager(pages) {
   if (pages <= 1) { pager.innerHTML = ''; pager.style.display = 'none'; return; }
   pager.style.display = 'flex';
   const btn = (label, page, disabled=false, active=false) =>
-    \`<button class="page-btn \${active?'active':''}" data-page="\${page}" \${disabled?'disabled':''}>\${label}</button>\`;
+    `<button class="page-btn ${active?'active':''}" data-page="${page}" ${disabled?'disabled':''}>${label}</button>`;
   let html = '';
   html += btn('‹', state.page-1, state.page===1);
   const addPage = p => html += btn(p, p, false, p===state.page);
@@ -408,7 +381,7 @@ function renderPager(pages) {
   pager.querySelectorAll('.page-btn').forEach(b => b.addEventListener('click', () => {
     state.page = Number(b.dataset.page);
     render();
-    window.scrollTo({top: grid.offsetTop - 80, behavior:'smooth'});
+    if (grid) window.scrollTo({top: grid.offsetTop - 80, behavior:'smooth'});
   }));
 }
 
@@ -419,7 +392,7 @@ function render() {
   if (state.page > pages) state.page = pages;
 
   // hide all
-  cards.forEach(c => c.style.display = 'none');
+  allCards.forEach(c => c.style.display = 'none');
   // show current slice
   const start = (state.page - 1) * state.pageSize;
   filtered.slice(start, start + state.pageSize).forEach(c => c.style.display = '');
@@ -437,19 +410,21 @@ tabs.forEach(t => t.addEventListener('click', () => {
 }));
 
 // search input
-searchInput.addEventListener('input', () => {
-  state.query = (searchInput.value || '').trim().toLowerCase();
-  state.page = 1;
-  render();
-});
+if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    state.query = (searchInput.value || '').trim().toLowerCase();
+    state.page = 1;
+    render();
+  });
+}
 
-// ---------- CAROUSELS (fixed)
+// ---------- CAROUSELS (fixed & resilient)
 function initCarousel(carousel) {
   const slides = carousel.querySelector('.slides');
   const images = slides ? slides.querySelectorAll('img') : [];
   if (!slides || !images.length) return;
 
-  // (Re)build dots based on images count
+  // build dots based on images count (replaces hardcoded dots)
   let dotsWrap = carousel.querySelector('.dots');
   if (!dotsWrap) {
     dotsWrap = document.createElement('div');
@@ -460,22 +435,23 @@ function initCarousel(carousel) {
   images.forEach((_, i) => {
     const d = document.createElement('div');
     d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.addEventListener('click', () => { idx = i; update(); restart(); });
     dotsWrap.appendChild(d);
   });
 
   let idx = 0;
   const left = carousel.querySelector('.arrow.left');
   const right = carousel.querySelector('.arrow.right');
+  const dots = () => dotsWrap.querySelectorAll('.dot');
 
   function update() {
-    // core fix: shift by full slide width (100%), not divided by images length
+    // correct shift: move by 100% per slide
     slides.style.transform = 'translateX(-' + (idx * 100) + '%)';
-    dotsWrap.querySelectorAll('.dot').forEach((d,i)=> d.classList.toggle('active', i===idx));
+    dots().forEach((d,i)=> d.classList.toggle('active', i===idx));
   }
 
   left && left.addEventListener('click', () => { idx = (idx - 1 + images.length) % images.length; update(); restart(); });
   right && right.addEventListener('click', () => { idx = (idx + 1) % images.length; update(); restart(); });
+  dots().forEach((d,i)=> d.addEventListener('click', ()=>{ idx=i; update(); restart(); }));
 
   let timer = setInterval(() => { idx = (idx + 1) % images.length; update(); }, 3500);
   function restart(){ clearInterval(timer); timer = setInterval(() => { idx = (idx + 1) % images.length; update(); }, 3500); }
@@ -495,6 +471,8 @@ document.querySelectorAll('.btn.primary').forEach(btn => {
 
 // initial render
 render();
+});
 </script>
+
 </body>
 </html>
