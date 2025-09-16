@@ -70,6 +70,28 @@
     .footbrand{display:flex;align-items:center;gap:12px}
     .footbrand .brand-badge{width:42px;height:42px}
     .tiny{font-size:12px;color:#a7acc2}
+  
+    /* === Uniform card heights & stable carousel (dresses = jackets) === */
+    .card{display:flex;flex-direction:column;height:100%}
+    .carousel{aspect-ratio:3/4;min-height:0;background:#0f1220}
+    .slides{height:100%}
+    .slides img{width:100%;height:100%;object-fit:cover;display:block;flex:0 0 100%}
+    .meta{flex:1;display:flex;flex-direction:column}
+    .buy{margin-top:auto}
+
+  
+    /* === Uniform lot image sizing across all categories === */
+    .carousel{position:relative;aspect-ratio:3/4;overflow:hidden;background:#0f1220}
+    .slides{display:flex;height:100%;transition:transform .5s ease}
+    /* Ensure single-image carousels also fit the same box */
+    .carousel > img{width:100%;height:100%;object-fit:cover;display:block}
+    /* Ensure multi-image slides fit identically */
+    .slides img{width:100%;height:100%;object-fit:cover;display:block;flex:0 0 100%}
+    /* Card vertical layout stays consistent */
+    .card{display:flex;flex-direction:column;height:100%}
+    .meta{flex:1;display:flex;flex-direction:column}
+    .buy{margin-top:auto}
+
   </style>
 </head>
 <body>
@@ -110,7 +132,467 @@
         </div>
       </div>
     </div>
-  </section>
+  
+      <article class="card" data-category="пиджаки" data-title="Пиджак 1">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer1_a.png" alt="Пиджак 1 a">
+            <img src="assets/blazer1_b.png" alt="Пиджак 1 b">
+            <img src="assets/blazer1_c.png" alt="Пиджак 1 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 1</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 2">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer2_a.png" alt="Пиджак 2 a">
+            <img src="assets/blazer2_b.png" alt="Пиджак 2 b">
+            <img src="assets/blazer2_c.png" alt="Пиджак 2 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 2</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 3">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer3_a.png" alt="Пиджак 3 a">
+            <img src="assets/blazer3_b.png" alt="Пиджак 3 b">
+            <img src="assets/blazer3_c.png" alt="Пиджак 3 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 3</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 4">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer4_a.png" alt="Пиджак 4 a">
+            <img src="assets/blazer4_b.png" alt="Пиджак 4 b">
+            <img src="assets/blazer4_c.png" alt="Пиджак 4 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 4</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 5">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer5_a.png" alt="Пиджак 5 a">
+            <img src="assets/blazer5_b.png" alt="Пиджак 5 b">
+            <img src="assets/blazer5_c.png" alt="Пиджак 5 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 5</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 6">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer6_a.png" alt="Пиджак 6 a">
+            <img src="assets/blazer6_b.png" alt="Пиджак 6 b">
+            <img src="assets/blazer6_c.png" alt="Пиджак 6 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 6</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 7">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer7_a.png" alt="Пиджак 7 a">
+            <img src="assets/blazer7_b.png" alt="Пиджак 7 b">
+            <img src="assets/blazer7_c.png" alt="Пиджак 7 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 7</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 8">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer8_a.png" alt="Пиджак 8 a">
+            <img src="assets/blazer8_b.png" alt="Пиджак 8 b">
+            <img src="assets/blazer8_c.png" alt="Пиджак 8 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 8</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 9">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer9_a.png" alt="Пиджак 9 a">
+            <img src="assets/blazer9_b.png" alt="Пиджак 9 b">
+            <img src="assets/blazer9_c.png" alt="Пиджак 9 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 9</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 10">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer10_a.png" alt="Пиджак 10 a">
+            <img src="assets/blazer10_b.png" alt="Пиджак 10 b">
+            <img src="assets/blazer10_c.png" alt="Пиджак 10 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 10</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 11">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer11_a.png" alt="Пиджак 11 a">
+            <img src="assets/blazer11_b.png" alt="Пиджак 11 b">
+            <img src="assets/blazer11_c.png" alt="Пиджак 11 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 11</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 12">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer12_a.png" alt="Пиджак 12 a">
+            <img src="assets/blazer12_b.png" alt="Пиджак 12 b">
+            <img src="assets/blazer12_c.png" alt="Пиджак 12 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 12</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 13">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer13_a.png" alt="Пиджак 13 a">
+            <img src="assets/blazer13_b.png" alt="Пиджак 13 b">
+            <img src="assets/blazer13_c.png" alt="Пиджак 13 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 13</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 14">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer14_a.png" alt="Пиджак 14 a">
+            <img src="assets/blazer14_b.png" alt="Пиджак 14 b">
+            <img src="assets/blazer14_c.png" alt="Пиджак 14 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 14</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 15">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer15_a.png" alt="Пиджак 15 a">
+            <img src="assets/blazer15_b.png" alt="Пиджак 15 b">
+            <img src="assets/blazer15_c.png" alt="Пиджак 15 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 15</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 16">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer16_a.png" alt="Пиджак 16 a">
+            <img src="assets/blazer16_b.png" alt="Пиджак 16 b">
+            <img src="assets/blazer16_c.png" alt="Пиджак 16 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 16</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 17">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer17_a.png" alt="Пиджак 17 a">
+            <img src="assets/blazer17_b.png" alt="Пиджак 17 b">
+            <img src="assets/blazer17_c.png" alt="Пиджак 17 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 17</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 18">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer18_a.png" alt="Пиджак 18 a">
+            <img src="assets/blazer18_b.png" alt="Пиджак 18 b">
+            <img src="assets/blazer18_c.png" alt="Пиджак 18 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 18</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 19">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer19_a.png" alt="Пиджак 19 a">
+            <img src="assets/blazer19_b.png" alt="Пиджак 19 b">
+            <img src="assets/blazer19_c.png" alt="Пиджак 19 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 19</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 20">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer20_a.png" alt="Пиджак 20 a">
+            <img src="assets/blazer20_b.png" alt="Пиджак 20 b">
+            <img src="assets/blazer20_c.png" alt="Пиджак 20 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 20</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+    </section>
 
   <main class="wrap" id="catalog">
     <div class="filters">
@@ -757,6 +1239,466 @@
           <div class="buy"><button class="btn primary">Купить</button><button class="btn ghost">В избранное</button></div>
         </div>
       </article>
+    
+      <article class="card" data-category="пиджаки" data-title="Пиджак 1">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer1_a.png" alt="Пиджак 1 a">
+            <img src="assets/blazer1_b.png" alt="Пиджак 1 b">
+            <img src="assets/blazer1_c.png" alt="Пиджак 1 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 1</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 2">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer2_a.png" alt="Пиджак 2 a">
+            <img src="assets/blazer2_b.png" alt="Пиджак 2 b">
+            <img src="assets/blazer2_c.png" alt="Пиджак 2 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 2</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 3">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer3_a.png" alt="Пиджак 3 a">
+            <img src="assets/blazer3_b.png" alt="Пиджак 3 b">
+            <img src="assets/blazer3_c.png" alt="Пиджак 3 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 3</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 4">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer4_a.png" alt="Пиджак 4 a">
+            <img src="assets/blazer4_b.png" alt="Пиджак 4 b">
+            <img src="assets/blazer4_c.png" alt="Пиджак 4 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 4</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 5">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer5_a.png" alt="Пиджак 5 a">
+            <img src="assets/blazer5_b.png" alt="Пиджак 5 b">
+            <img src="assets/blazer5_c.png" alt="Пиджак 5 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 5</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 6">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer6_a.png" alt="Пиджак 6 a">
+            <img src="assets/blazer6_b.png" alt="Пиджак 6 b">
+            <img src="assets/blazer6_c.png" alt="Пиджак 6 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 6</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 7">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer7_a.png" alt="Пиджак 7 a">
+            <img src="assets/blazer7_b.png" alt="Пиджак 7 b">
+            <img src="assets/blazer7_c.png" alt="Пиджак 7 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 7</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 8">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer8_a.png" alt="Пиджак 8 a">
+            <img src="assets/blazer8_b.png" alt="Пиджак 8 b">
+            <img src="assets/blazer8_c.png" alt="Пиджак 8 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 8</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 9">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer9_a.png" alt="Пиджак 9 a">
+            <img src="assets/blazer9_b.png" alt="Пиджак 9 b">
+            <img src="assets/blazer9_c.png" alt="Пиджак 9 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 9</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 10">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer10_a.png" alt="Пиджак 10 a">
+            <img src="assets/blazer10_b.png" alt="Пиджак 10 b">
+            <img src="assets/blazer10_c.png" alt="Пиджак 10 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 10</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 11">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer11_a.png" alt="Пиджак 11 a">
+            <img src="assets/blazer11_b.png" alt="Пиджак 11 b">
+            <img src="assets/blazer11_c.png" alt="Пиджак 11 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 11</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 12">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer12_a.png" alt="Пиджак 12 a">
+            <img src="assets/blazer12_b.png" alt="Пиджак 12 b">
+            <img src="assets/blazer12_c.png" alt="Пиджак 12 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 12</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 13">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer13_a.png" alt="Пиджак 13 a">
+            <img src="assets/blazer13_b.png" alt="Пиджак 13 b">
+            <img src="assets/blazer13_c.png" alt="Пиджак 13 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 13</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 14">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer14_a.png" alt="Пиджак 14 a">
+            <img src="assets/blazer14_b.png" alt="Пиджак 14 b">
+            <img src="assets/blazer14_c.png" alt="Пиджак 14 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 14</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 15">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer15_a.png" alt="Пиджак 15 a">
+            <img src="assets/blazer15_b.png" alt="Пиджак 15 b">
+            <img src="assets/blazer15_c.png" alt="Пиджак 15 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 15</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 16">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer16_a.png" alt="Пиджак 16 a">
+            <img src="assets/blazer16_b.png" alt="Пиджак 16 b">
+            <img src="assets/blazer16_c.png" alt="Пиджак 16 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 16</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 17">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer17_a.png" alt="Пиджак 17 a">
+            <img src="assets/blazer17_b.png" alt="Пиджак 17 b">
+            <img src="assets/blazer17_c.png" alt="Пиджак 17 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 17</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 18">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer18_a.png" alt="Пиджак 18 a">
+            <img src="assets/blazer18_b.png" alt="Пиджак 18 b">
+            <img src="assets/blazer18_c.png" alt="Пиджак 18 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 18</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 19">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer19_a.png" alt="Пиджак 19 a">
+            <img src="assets/blazer19_b.png" alt="Пиджак 19 b">
+            <img src="assets/blazer19_c.png" alt="Пиджак 19 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 19</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
+
+      <article class="card" data-category="пиджаки" data-title="Пиджак 20">
+        <div class="carousel">
+          <div class="arrow left">‹</div>
+          <div class="arrow right">›</div>
+          <div class="slides">
+            <img src="assets/blazer20_a.png" alt="Пиджак 20 a">
+            <img src="assets/blazer20_b.png" alt="Пиджак 20 b">
+            <img src="assets/blazer20_c.png" alt="Пиджак 20 c">
+          </div>
+          <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="meta">
+          <h3 class="title">Пиджак 20</h3>
+          <div class="price-size"><span>150 AED</span><span>Размеры: S–XL</span></div>
+          <div class="badges"><span class="badge">Пиджаки</span></div>
+          <div class="buy">
+            <button class="btn primary">Купить</button>
+            <button class="btn ghost">В избранное</button>
+          </div>
+        </div>
+      </article>
+
     </section>
 
     <nav class="pager" id="pager"></nav>
