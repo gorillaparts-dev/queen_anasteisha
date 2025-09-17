@@ -132,7 +132,6 @@
         <div class="tab" data-filter="костюмы">Костюмы</div>
         
       </div>
-      <a class="btn fav-link" href="favorites.html" style="margin:8px 0 0 8px;display:inline-block">Избранное</a>
       <label class="search">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.2-4.2M10.8 18.6a7.8 7.8 0 1 1 0-15.6 7.8 7.8 0 0 1 0 15.6z" stroke="white" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/></svg>
         <input id="search" placeholder="Поиск по лотам..." />
@@ -1045,74 +1044,6 @@ document.querySelectorAll('.btn.primary').forEach(btn => {
 // initial render
 render();
 });
-</script>
-
-
-<script>
-(function(){
-  const STORAGE_KEY = 'favs_v1';
-
-  function getFavs(){
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
-    catch(e){ return []; }
-  }
-  function setFavs(list){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-  }
-  function isFav(title){
-    const favs = getFavs();
-    return favs.includes(title);
-  }
-  function toggleFav(title){
-    const favs = getFavs();
-    const idx = favs.indexOf(title);
-    if (idx >= 0) favs.splice(idx,1);
-    else favs.push(title);
-    setFavs(favs);
-    return favs.includes(title);
-  }
-
-  // Apply initial state for each card's "В избранное" button
-  function initFavButtons(){
-    document.querySelectorAll('.card').forEach(card => {
-      const title = card.getAttribute('data-title') || card.querySelector('.title')?.textContent?.trim();
-      const btn = card.querySelector('.btn.ghost');
-      if (!btn || !title) return;
-      if (isFav(title)) {
-        card.classList.add('fav');
-        btn.textContent = 'В избранном';
-        btn.setAttribute('aria-pressed','true');
-      } else {
-        card.classList.remove('fav');
-        btn.textContent = 'В избранное';
-        btn.setAttribute('aria-pressed','false');
-      }
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const state = toggleFav(title);
-        if (state){
-          card.classList.add('fav');
-          btn.textContent = 'В избранном';
-          btn.setAttribute('aria-pressed','true');
-        } else {
-          card.classList.remove('fav');
-          btn.textContent = 'В избранное';
-          btn.setAttribute('aria-pressed','false');
-        }
-      });
-    });
-  }
-
-  // Re-init after any dynamic re-render (if your catalog re-filters or paginates)
-  const obs = new MutationObserver(() => initFavButtons());
-  window.addEventListener('DOMContentLoaded', initFavButtons);
-  obs.observe(document.body, { childList: true, subtree: true });
-
-  // Small visual accent for fav cards
-  const style = document.createElement('style');
-  style.textContent = `.card.fav{outline:2px solid var(--accent, #6cf); outline-offset:-2px}`;
-  document.head.appendChild(style);
-})();
 </script>
 
 </body>
